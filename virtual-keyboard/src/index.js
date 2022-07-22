@@ -2,16 +2,12 @@
 /* eslint-disable no-continue */
 import "./sass/style.scss";
 
-const wrapper = document.createElement("div");
-wrapper.classList.add("wrapper");
-document.body.prepend(wrapper);
-
 const wrapperKeys = document.createElement("div");
 wrapperKeys.classList.add("wrapper-keys");
 const textarea = document.createElement("textarea");
 textarea.classList.add("textarea");
 textarea.autofocus = true;
-wrapper.append(textarea, wrapperKeys);
+document.body.append(textarea, wrapperKeys);
 
 let arrKeys = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace", "Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", "CapsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter", "Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "Shift", "Control", "Alt", " ", "Alt", "Control", "ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"];
 let arrKeysRu = ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "."];
@@ -142,41 +138,43 @@ document.addEventListener("keyup", (e) => {
 const capBtn = document.querySelector(".capslock");
 
 wrapperKeys.addEventListener("click", (e) => {
-  if (e.target.dataset.key === "Tab") {
-    textarea.value += "\t";
-  } else if (e.target.dataset.key === "Enter") {
-    textarea.value += "\n";
-  } else if (e.target.dataset.key === "Backspace") {
-    textarea.setRangeText("", textarea.selectionStart > 0 ? textarea.selectionStart - 1 : 0, textarea.selectionEnd, "end");
-  } else if (e.target.dataset.key === "Shift" || e.target.dataset.key === "Alt" || e.target.dataset.key === "Control") {
-    textarea.value += "";
-    if (e.target.dataset.key === "Alt") {
-      flag += 1;
+  if (e.target.closest(".key")) {
+    if (e.target.dataset.key === "Tab") {
+      textarea.value += "\t";
+    } else if (e.target.dataset.key === "Enter") {
+      textarea.value += "\n";
+    } else if (e.target.dataset.key === "Backspace") {
+      textarea.setRangeText("", textarea.selectionStart > 0 ? textarea.selectionStart - 1 : 0, textarea.selectionEnd, "end");
+    } else if (e.target.dataset.key === "Shift" || e.target.dataset.key === "Alt" || e.target.dataset.key === "Control") {
+      textarea.value += "";
+      if (e.target.dataset.key === "Alt") {
+        flag += 1;
+        e.target.classList.toggle("active");
+      }
+      if (e.target.dataset.key === "Shift" && flag !== 0) {
+        e.target.classList.add("active");
+        changeLetters();
+        flag = 0;
+        e.target.classList.remove("active");
+        altBtns[0].classList.remove("active");
+      }
+    } else if (e.target.dataset.key === "CapsLock") {
       e.target.classList.toggle("active");
-    }
-    if (e.target.dataset.key === "Shift" && flag !== 0) {
-      e.target.classList.add("active");
-      changeLetters();
-      flag = 0;
-      e.target.classList.remove("active");
-      altBtns[0].classList.remove("active");
-    }
-  } else if (e.target.dataset.key === "CapsLock") {
-    e.target.classList.toggle("active");
-  } else if (e.target.dataset.key === "ArrowLeft") {
-    textarea.value += "←";
-  } else if (e.target.dataset.key === "ArrowUp") {
-    textarea.value += "↑";
-  } else if (e.target.dataset.key === "ArrowDown") {
-    textarea.value += "↓";
-  } else if (e.target.dataset.key === "ArrowRight") {
-    textarea.value += "→";
-  } else {
-    // eslint-disable-next-line no-lonely-if
-    if (capBtn.classList.contains("active")) {
-      textarea.value += e.target.dataset.key.toUpperCase();
+    } else if (e.target.dataset.key === "ArrowLeft") {
+      textarea.value += "←";
+    } else if (e.target.dataset.key === "ArrowUp") {
+      textarea.value += "↑";
+    } else if (e.target.dataset.key === "ArrowDown") {
+      textarea.value += "↓";
+    } else if (e.target.dataset.key === "ArrowRight") {
+      textarea.value += "→";
     } else {
-      textarea.value += e.target.dataset.key;
+      // eslint-disable-next-line no-lonely-if
+      if (capBtn.classList.contains("active")) {
+        textarea.value += e.target.dataset.key.toUpperCase();
+      } else {
+        textarea.value += e.target.dataset.key;
+      }
     }
   }
 });
