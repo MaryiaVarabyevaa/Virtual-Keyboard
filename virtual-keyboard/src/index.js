@@ -85,6 +85,7 @@ let ctrlBtns = document.querySelectorAll(".ctrl");
 let altBtns = document.querySelectorAll(".alt");
 const shiftBtns = document.querySelectorAll(".shift");
 let letters = document.querySelectorAll(".letter");
+const capBtn = document.querySelector(".capslock");
 
 function changeLetters() {
   let arr;
@@ -99,8 +100,25 @@ function changeLetters() {
 let flag = 0;
 
 document.addEventListener("keydown", (e) => {
-  if (e.code === "AltLeft") flag += 1;
-  if (e.code === "ShiftLeft" && flag !== 0) changeLetters();
+  if (e.code === "AltLeft" || e.code === "AltRight") flag += 1;
+  if ((e.code === "ShiftLeft" || e.code === "ShiftRight") && flag !== 0) {
+    changeLetters();
+    flag = 0;
+  }
+
+  if (e.key === "!") keys[1].classList.add("active");
+  if (e.key === "@" || e.key === "\"") keys[2].classList.add("active");
+  if (e.key === "#" || e.key === "№") keys[3].classList.add("active");
+  if (e.key === "$" || e.key === ";") keys[4].classList.add("active");
+  if (e.key === "%") keys[5].classList.add("active");
+  if (e.key === "^" || e.key === ":") keys[6].classList.add("active");
+  if (e.key === "&" || e.key === "?") keys[7].classList.add("active");
+  if (e.key === "*") keys[8].classList.add("active");
+  if (e.key === "(") keys[9].classList.add("active");
+  if (e.key === ")") keys[10].classList.add("active");
+  if (e.key === "_") keys[11].classList.add("active");
+  if (e.key === "+") keys[12].classList.add("active");
+
   for (let i = 0; i < keys.length; i++) {
     if (keys[i].dataset.key === e.key && e.code === "ControlLeft") {
       ctrlBtns[0].classList.add("active");
@@ -123,10 +141,26 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("keyup", (e) => {
+  if (e.key === "!") keys[1].classList.remove("active");
+  if (e.key === "@" || e.key === "\"") keys[2].classList.remove("active");
+  if (e.key === "#" || e.key === "№") keys[3].classList.remove("active");
+  if (e.key === "$" || e.key === ";") keys[4].classList.remove("active");
+  if (e.key === "%") keys[5].classList.remove("active");
+  if (e.key === "^" || e.key === ":") keys[6].classList.remove("active");
+  if (e.key === "&" || e.key === "?") keys[7].classList.remove("active");
+  if (e.key === "*") keys[8].classList.remove("active");
+  if (e.key === "(") keys[9].classList.remove("active");
+  if (e.key === ")") keys[10].classList.remove("active");
+  if (e.key === "_") keys[11].classList.remove("active");
+  if (e.key === "+") keys[12].classList.remove("active");
+
   for (let i = 0; i < keys.length; i++) {
     if (keys[i].dataset.key === e.key && e.code === "CapsLock") {
       continue;
     } else if (keys[i].dataset.key === e.key && e.code === "AltLeft") {
+      keys[i].classList.remove("active");
+      flag = 0;
+    } else if (keys[i].dataset.key === e.key && e.code === "AltRight") {
       keys[i].classList.remove("active");
       flag = 0;
     } else if (keys[i].dataset.key === e.key || keys[i].dataset.key.toUpperCase() === e.key) {
@@ -134,8 +168,6 @@ document.addEventListener("keyup", (e) => {
     }
   }
 });
-
-const capBtn = document.querySelector(".capslock");
 
 wrapperKeys.addEventListener("click", (e) => {
   if (e.target.closest(".key")) {
@@ -158,6 +190,10 @@ wrapperKeys.addEventListener("click", (e) => {
         e.target.classList.remove("active");
         altBtns[0].classList.remove("active");
       }
+      if (e.target.dataset.key === "Shift" && flag === 0) {
+        flag += 1;
+        e.target.classList.add("active");
+      }
     } else if (e.target.dataset.key === "CapsLock") {
       e.target.classList.toggle("active");
     } else if (e.target.dataset.key === "ArrowLeft") {
@@ -168,6 +204,59 @@ wrapperKeys.addEventListener("click", (e) => {
       textarea.value += "↓";
     } else if (e.target.dataset.key === "ArrowRight") {
       textarea.value += "→";
+    } else if (e.target.dataset.key === "1" && flag !== 0) {
+      textarea.value += "!";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "2" && flag !== 0) {
+      if (keys[0] === "`") textarea.value += "@";
+      else textarea.value += "\"";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "3" && flag !== 0) {
+      if (keys[0] === "`") textarea.value += "@";
+      else textarea.value += "№";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "4" && flag !== 0) {
+      if (keys[0] === "`") textarea.value += "$";
+      else textarea.value += ";";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "5" && flag !== 0) {
+      textarea.value += "%";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "6" && flag !== 0) {
+      if (keys[0] === "`") textarea.value += "^";
+      else textarea.value += ":";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "7" && flag !== 0) {
+      if (keys[0] === "`") textarea.value += "&";
+      else textarea.value += "?";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "8" && flag !== 0) {
+      textarea.value += "*";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "9" && flag !== 0) {
+      textarea.value += "(";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "0" && flag !== 0) {
+      textarea.value += ")";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "-" && flag !== 0) {
+      textarea.value += "_";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
+    } else if (e.target.dataset.key === "=" && flag !== 0) {
+      textarea.value += "+";
+      flag = 0;
+      shiftBtns[0].classList.remove("active");
     } else {
       // eslint-disable-next-line no-lonely-if
       if (capBtn.classList.contains("active")) {
