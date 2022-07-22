@@ -8,8 +8,10 @@ html {
     scroll-behavior: smooth; 
 }
 body {
+    height: 100vh;
     font-size: 1.6rem;
     @extend %font-primary;
+    @include flex(column, center, center);
     overflow-x: hidden;
     background-color: $color-background;
 }

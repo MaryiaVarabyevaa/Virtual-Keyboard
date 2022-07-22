@@ -1,0 +1,12 @@
+.textarea {
+    width: 1330px;
+    height: 200px;
+    padding: 10px;
+    resize: none;
+    outline: none;
+    background-color: $color-background-key;
+    color: $color-letter;
+    font-size: 3rem;
+    @extend %border;
+    border: 10px solid $color-background-keyboard;
+}

@@ -1,0 +1,60 @@
+.key {
+  width: 80px;
+  height: 80px;
+  background-color: $color-background-key;
+  font-size: 2.0rem;
+  color: $color-letter;
+  @include flex(column, center, center);
+  @extend %border;
+  @extend %cursor;
+  @extend %transition;
+  &:hover {
+    @extend %hover;
+  }
+}
+.active {
+  font-size: 2.6rem;
+  background-color: $color-background;
+}
+.red {
+  background-color: red;
+}
+.key-upper-comma {
+  width: 50px;
+}
+.backspace {
+  width: 170px;
+}
+.tab {
+  width: 115px;
+}
+.backslash {
+  width: 105px;
+}
+.capslock {
+  width: 130px;
+}
+.enter {
+  width: 180px;
+}
+.shift {
+  width: 200px;
+}
+.whitespace {
+  width: 600px;
+}
+.arr-left {
+  grid-area: 1/1/1/3;
+}
+.arr-up {
+  height: 35px;
+  grid-area: 2/2/1/2;
+}
+.arr-down {
+  height: 35px;
+  grid-area: 2/2/2/3;
+}
+.ctrl,
+.alt {
+  width: 100px;
+}

@@ -1,3 +1,16 @@
 %font-primary {
-    font-family: 'Poppins', sans-serif;;
+    font-family: 'Poppins', sans-serif;
+}
+%border {
+    border-radius: 5px;
+}
+%cursor {
+    cursor: pointer;
+}
+%hover {
+    font-size: 2.6rem;
+    background-color: $color-background;
+}
+%transition {
+    transition: all 0.2s ease-in-out;
 }
